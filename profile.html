@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>StudyFlow Profile</title>
+
+  <link
+    rel="stylesheet"
+    href="profile.css"
+  >
+</head>
+
+<body>
+
+  <!-- MOBILE SIDEBAR OVERLAY -->
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+  ></div>
+
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="sidebar-top">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            S
+          </div>
+
+          <h2>
+            StudyFlow
+          </h2>
+
+        </div>
+
+
+        <button
+          id="closeSidebar"
+          class="close-sidebar-btn"
+          type="button"
+          aria-label="Close navigation"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <nav class="nav-menu">
+
+        <a
+          href="dashboard.html"
+          class="nav-item"
+        >
+          <span>🏠</span>
+          Dashboard
+        </a>
+
+
+        <a
+          href="tasks.html"
+          class="nav-item"
+        >
+          <span>📝</span>
+          Tasks
+        </a>
+
+
+        <a
+          href="assignments.html"
+          class="nav-item"
+        >
+          <span>📚</span>
+          Assignments
+        </a>
+
+
+        <a
+          href="exams.html"
+          class="nav-item"
+        >
+          <span>📅</span>
+          Exams
+        </a>
+
+
+        <a
+          href="calendar.html"
+          class="nav-item"
+        >
+          <span>📆</span>
+          Calendar
+        </a>
+
+
+        <a
+          href="integrations.html"
+          class="nav-item"
+        >
+          <span>🔗</span>
+          Integrations
+        </a>
+
+
+        <a
+          href="profile.html"
+          class="nav-item active"
+        >
+          <span>👤</span>
+          Profile
+        </a>
+
+      </nav>
+
+
+      <button
+        id="logoutButton"
+        class="logout-btn"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+      <!-- MOBILE HEADER -->
+
+      <div class="mobile-header">
+
+        <button
+          id="openSidebar"
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+
+
+        <div class="mobile-brand">
+
+          <div class="mobile-brand-icon">
+            S
+          </div>
+
+          <span>
+            StudyFlow
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- PAGE HEADER -->
+
+      <div class="topbar">
+
+        <div>
+
+          <p class="small-text">
+            Account Settings
+          </p>
+
+          <h1>
+            Profile
+          </h1>
+
+          <p class="sub-text">
+            Manage your StudyFlow account information and password.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE SUMMARY -->
+
+      <section class="profile-summary">
+
+        <div
+          class="profile-avatar"
+          id="profileAvatar"
+        >
+          S
+        </div>
+
+
+        <div class="profile-summary-info">
+
+          <h2 id="profileDisplayName">
+            Student
+          </h2>
+
+          <p id="profileDisplayEmail">
+            Loading...
+          </p>
+
+          <span>
+            Member since
+            <strong id="memberSince">
+              -
+            </strong>
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- GRID -->
+
+      <div class="profile-grid">
+
+        <!-- PERSONAL DETAILS -->
+
+        <section class="profile-card">
+
+          <div class="card-header">
+
+            <div class="card-icon">
+              👤
+            </div>
+
+            <div>
+
+              <h2>
+                Personal Information
+              </h2>
+
+              <p>
+                Update your name and email address.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="profileMessage"
+            class="form-message"
+          ></div>
+
+
+          <form id="profileForm">
+
+            <div class="form-group">
+
+              <label for="profileName">
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                id="profileName"
+                placeholder="Enter your name"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="profileEmail">
+                Email Address
+              </label>
+
+              <input
+                type="email"
+                id="profileEmail"
+                placeholder="Enter your email"
+                required
+              >
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="primary-btn"
+              id="saveProfileButton"
+            >
+              Save Changes
+            </button>
+
+          </form>
+
+        </section>
+
+
+        <!-- PASSWORD -->
+
+        <section class="profile-card">
+
+          <div class="card-header">
+
+            <div class="card-icon">
+              🔐
+            </div>
+
+            <div>
+
+              <h2>
+                Change Password
+              </h2>
+
+              <p>
+                Update your account password securely.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="passwordMessage"
+            class="form-message"
+          ></div>
+
+
+          <form id="passwordForm">
+
+            <div class="form-group">
+
+              <label for="currentPassword">
+                Current Password
+              </label>
+
+              <input
+                type="password"
+                id="currentPassword"
+                placeholder="Enter current password"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="newPassword">
+                New Password
+              </label>
+
+              <input
+                type="password"
+                id="newPassword"
+                placeholder="At least 6 characters"
+                minlength="6"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="confirmPassword">
+                Confirm New Password
+              </label>
+
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Re-enter new password"
+                minlength="6"
+                required
+              >
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="primary-btn"
+              id="changePasswordButton"
+            >
+              Change Password
+            </button>
+
+          </form>
+
+        </section>
+
+      </div>
+
+
+      <!-- ACCOUNT CARD -->
+
+      <section class="account-card">
+
+        <div>
+
+          <h3>
+            Account
+          </h3>
+
+          <p>
+            End your current StudyFlow session on this device.
+          </p>
+
+        </div>
+
+
+        <button
+          id="logoutProfileButton"
+          class="logout-profile-btn"
+          type="button"
+        >
+          Logout
+        </button>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script src="profile.js"></script>
+
+</body>
+
+</html>

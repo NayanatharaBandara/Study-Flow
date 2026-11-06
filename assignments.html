@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>StudyFlow Assignments</title>
+
+  <link rel="stylesheet" href="assignments.css">
+</head>
+
+<body>
+
+  <!-- MOBILE SIDEBAR OVERLAY -->
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+  ></div>
+
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="sidebar-top">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            S
+          </div>
+
+          <h2>
+            StudyFlow
+          </h2>
+
+        </div>
+
+
+        <button
+          id="closeSidebar"
+          class="close-sidebar-btn"
+          type="button"
+          aria-label="Close navigation"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <nav class="nav-menu">
+
+        <a href="dashboard.html" class="nav-item">
+          <span>🏠</span>
+          Dashboard
+        </a>
+
+        <a href="tasks.html" class="nav-item">
+          <span>📝</span>
+          Tasks
+        </a>
+
+        <a href="assignments.html" class="nav-item active">
+          <span>📚</span>
+          Assignments
+        </a>
+
+        <a href="exams.html" class="nav-item">
+          <span>📅</span>
+          Exams
+        </a>
+
+        <a href="calendar.html" class="nav-item">
+          <span>📆</span>
+          Calendar
+        </a>
+
+        <a href="integrations.html" class="nav-item">
+          <span>🔗</span>
+          Integrations
+        </a>
+
+        <a href="profile.html" class="nav-item">
+          <span>👤</span>
+          Profile
+        </a>
+
+      </nav>
+
+
+      <button
+        id="logoutButton"
+        class="logout-btn"
+      >
+        Logout
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+      <!-- MOBILE HEADER -->
+
+      <div class="mobile-header">
+
+        <button
+          id="openSidebar"
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+
+
+        <div class="mobile-brand">
+
+          <div class="mobile-brand-icon">
+            S
+          </div>
+
+          <span>
+            StudyFlow
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- TOP -->
+
+      <div class="topbar">
+
+        <div>
+
+          <p class="small-text">
+            Academic Work
+          </p>
+
+          <h1>
+            Assignments
+          </h1>
+
+        </div>
+
+
+        <button
+          class="add-assignment-btn"
+          id="openAssignmentModal"
+        >
+          + Add Assignment
+        </button>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            📚
+          </div>
+
+          <div>
+            <p>Total Assignments</p>
+            <h2 id="totalAssignments">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⏳
+          </div>
+
+          <div>
+            <p>Pending</p>
+            <h2 id="pendingAssignments">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ✅
+          </div>
+
+          <div>
+            <p>Completed</p>
+            <h2 id="completedAssignments">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            🚨
+          </div>
+
+          <div>
+            <p>Overdue</p>
+            <h2 id="overdueAssignments">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⚠️
+          </div>
+
+          <div>
+            <p>High Priority</p>
+            <h2 id="highPriorityAssignments">0</h2>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PANEL -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <h2>
+              My Assignments
+            </h2>
+
+            <p>
+              Search, filter and manage your university assignments.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- TOOLS -->
+
+        <div class="assignment-tools">
+
+          <div class="search-box">
+
+            <span>
+              🔍
+            </span>
+
+            <input
+              type="text"
+              id="assignmentSearch"
+              placeholder="Search subject, title, description or source..."
+            >
+
+          </div>
+
+
+          <select id="assignmentFilter">
+
+            <option value="all">
+              All Status
+            </option>
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="overdue">
+              Overdue
+            </option>
+
+          </select>
+
+
+          <select id="priorityFilter">
+
+            <option value="all">
+              All Priorities
+            </option>
+
+            <option value="high">
+              High Priority
+            </option>
+
+            <option value="medium">
+              Medium Priority
+            </option>
+
+            <option value="low">
+              Low Priority
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- RESULT SUMMARY -->
+
+        <div
+          class="result-summary"
+          id="resultSummary"
+        >
+          Showing 0 assignments
+        </div>
+
+
+        <!-- ASSIGNMENT LIST -->
+
+        <div
+          id="assignmentList"
+          class="assignment-list"
+        >
+
+          <div class="empty-state">
+
+            <p>
+              No assignments found.
+            </p>
+
+            <span>
+              Add an assignment to get started.
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ASSIGNMENT MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="assignmentModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="assignmentModalTitle">
+            Add New Assignment
+          </h2>
+
+          <p>
+            Add or update your academic assignment.
+          </p>
+
+        </div>
+
+
+        <button
+          id="closeAssignmentModal"
+          class="close-btn"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="assignmentForm">
+
+        <input
+          type="hidden"
+          id="assignmentId"
+        >
+
+
+        <div class="form-group">
+
+          <label for="assignmentSubject">
+            Subject / Module
+          </label>
+
+          <input
+            type="text"
+            id="assignmentSubject"
+            placeholder="Example: Database Systems"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="assignmentTitle">
+            Assignment Title
+          </label>
+
+          <input
+            type="text"
+            id="assignmentTitle"
+            placeholder="Example: ER Diagram Report"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="assignmentDescription">
+            Description
+          </label>
+
+          <textarea
+            id="assignmentDescription"
+            placeholder="Add assignment details..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="assignmentDueDate">
+              Due Date
+            </label>
+
+            <input
+              type="date"
+              id="assignmentDueDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="assignmentPriority">
+              Priority
+            </label>
+
+            <select id="assignmentPriority">
+
+              <option value="low">
+                Low
+              </option>
+
+              <option
+                value="medium"
+                selected
+              >
+                Medium
+              </option>
+
+              <option value="high">
+                High
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="save-assignment-btn"
+          id="saveAssignmentButton"
+        >
+          Save Assignment
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="assignments.js"></script>
+
+</body>
+
+</html>

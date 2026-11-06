@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgriExport Sync</title>
+<style>
+:root{--green:#087f5b;--dark:#123c30;--bg:#f5f8f6;--border:#dce7e1}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#243b32}
+button,input,select{font:inherit}
+button{cursor:pointer}
+aside{position:fixed;width:230px;height:100vh;background:var(--dark);color:white;padding:22px 12px;overflow:auto}
+.logo{font-size:22px;font-weight:800;padding:8px;margin-bottom:25px}
+.logo span{color:#7de3ad}
+.nav{display:block;width:100%;border:0;background:transparent;color:#cbe6db;padding:14px;text-align:left;border-radius:9px;margin:5px 0}
+.nav:hover,.nav.active{background:#207558;color:white}
+main{margin-left:230px;padding:25px 35px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.top h2{margin:0}
+.top select{max-width:150px}
+.card{background:white;border:1px solid var(--border);border-radius:15px;padding:22px;margin-bottom:20px;box-shadow:0 2px 9px #123c3009}
+.hero{background:linear-gradient(120deg,#087f5b,#123c30);color:white;padding:35px;border-radius:18px;margin-bottom:22px}
+.hero h1{font-size:30px;margin:0 0 12px}
+.hero p{color:#d9f4e8;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stat{background:white;border:1px solid var(--border);border-radius:13px;padding:22px}
+.stat b{font-size:30px;display:block;margin-top:12px}
+.muted{color:#71847a;font-size:13px}
+.btn{background:var(--green);color:white;border:0;padding:12px 18px;border-radius:9px;font-weight:bold}
+.btn:hover{background:#056a4b}
+.btn.red{background:#b84747}
+.btn.small{padding:7px 11px;font-size:12px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:13px;font-weight:bold}
+input,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:9px;background:white}
+.full{grid-column:1/-1}
+.page{display:none}
+.page.active{display:block}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+td,th{text-align:left;padding:13px;border-bottom:1px solid var(--border);font-size:14px}
+th{background:#f2f8f5;color:#596d63}
+.tag{display:inline-block;background:#e3f6eb;color:#087f5b;padding:6px 10px;border-radius:20px;font-size:12px}
+.tag.warn{background:#fff0d4;color:#9b6800}
+.result{background:#edf9f2;border:1px solid #bce5ca;border-radius:12px;padding:18px;margin-top:15px}
+.bar{height:11px;border-radius:8px;background:#e3eee8;overflow:hidden}
+.fill{height:100%;background:#087f5b}
+.crop{background:white;padding:20px;border:1px solid var(--border);border-radius:13px}
+.crop .emoji{font-size:35px}
+.note{background:#eaf7f0;border-left:4px solid var(--green);padding:14px;margin:15px 0;border-radius:6px}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media(max-width:650px){
+ aside{position:static;width:100%;height:auto}
+ .logo{margin-bottom:10px}
+ nav{display:flex;overflow:auto}
+ .nav{min-width:max-content}
+ main{margin:0;padding:17px}
+ .grid,.form{grid-template-columns:1fr}
+ .top{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<aside>
+ <div class="logo">🌱 AgriExport <span>Sync</span></div>
+ <nav>
+  <button class="nav active" data-page="dashboard" data-key="dashboard">📊 Dashboard</button>
+  <button class="nav" data-page="crops" data-key="crops">🌾 Crops</button>
+  <button class="nav" data-page="suppliers" data-key="suppliers">👨‍🌾 Suppliers</button>
+  <button class="nav" data-page="orders" data-key="orders">📦 Orders</button>
+  <button class="nav" data-page="matching" data-key="matching">🧠 Smart Matching</button>
+  <button class="nav" data-page="register" data-key="register">👤 Registration</button>
+ </nav>
+ <p class="muted" style="color:#abd4c3;margin:25px 12px">Capstone Prototype • Demo Mode</p>
+</aside>
+
+<main>
+ <div class="top">
+  <div>
+   <h2 id="pageTitle">Dashboard</h2>
+   <p class="muted">Intelligent Agricultural Export Platform</p>
+  </div>
+  <div style="display:flex;gap:8px">
+   <select id="country">
+    <option value="LK">🇱🇰 Sri Lanka</option>
+    <option value="DE">🇩🇪 Germany</option>
+    <option value="FR">🇫🇷 France</option>
+    <option value="US">🇺🇸 USA</option>
+    <option value="JP">🇯🇵 Japan</option>
+   </select>
+   <select id="language">
+    <option value="en">English</option>
+    <option value="si">සිංහල</option>
+    <option value="ta">தமிழ்</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+   </select>
+  </div>
+ </div>
+
+ <section class="page active" id="dashboard">
+  <div class="hero">
+   <h1 id="heroTitle">Connect. Optimize. Export.</h1>
+   <p id="heroDesc">Connecting agricultural suppliers, exporters and international buyers through intelligent supply coordination.</p>
+   <button class="btn" style="background:white;color:#087f5b" onclick="go('matching')">Try Smart Matching →</button>
+  </div>
+  <div class="grid" id="stats"></div>
+  <div class="two" style="margin-top:22px">
+   <div class="card"><h3>Available Crop Supply</h3><div id="cropSummary"></div></div>
+   <div class="card"><h3>Recent Buyer Orders</h3><div id="recentOrders"></div></div>
+  </div>
+ </section>
+
+ <section class="page" id="crops">
+  <h2>Dynamic Crop Management</h2>
+  <div class="two">
+   <div class="card">
+    <h3>Add Any Crop</h3>
+    <form class="form" id="cropForm">
+     <div class="field"><label>Crop Name</label><input id="cropName" required maxlength="80" placeholder="e.g. Cinnamon"></div>
+     <div class="field"><label>Category</label>
+      <select id="cropCategory">
+       <option>Plantation Crops</option><option>Spices</option>
+       <option>Fruits</option><option>Vegetables</option>
+       <option>Processed Products</option><option>Other</option>
+      </select>
+     </div>
+     <div class="field"><label>Unit</label>
+      <select id="cropUnit"><option>kg</option><option>tonnes</option><option>litres</option><option>units</option></select>
+     </div>
+     <div class="field"><label>Icon</label>
+      <select id="cropIcon"><option>🌱</option><option>🥥</option><option>🍃</option><option>☕</option><option>🌶️</option><option>🍌</option><option>🌾</option></select>
+     </div>
+     <button class="btn full">+ Add Crop</button>
+    </form>
+   </div>
+   <div class="card">
+    <h3>Dynamic Product System</h3>
+    <p>Add tea, coconut, rubber, coffee, cinnamon or any other agricultural product.</p>
+    <div class="note">New crops automatically appear in supplier and buyer order forms.</div>
+    <p class="muted">No hardcoded crop restrictions in this demo.</p>
+   </div>
+  </div>
+  <div class="grid" id="cropCards"></div>
+ </section>
+
+ <section class="page" id="suppliers">
+  <h2>Supplier Management</h2>
+  <div class="card">
+   <h3>Register Supplier Stock</h3>
+   <form id="supplierForm" class="form">
+    <div class="field"><label>Supplier Name</label><input id="supplierName" required maxlength="100"></div>
+    <div class="field"><label>Location</label><input id="supplierLocation" required maxlength="100"></div>
+    <div class="field"><label>Product</label><select id="supplierCrop"></select></div>
+    <div class="field"><label>Available Quantity</label><input id="supplierQty" type="number" min="0.01" step="0.01" required></div>
+    <div class="field"><label>Unit Price (LKR)</label><input id="supplierPrice" type="number" min="0.01" step="0.01" required></div>
+    <div class="field"><label>Quality Status</label><select id="supplierQuality"><option>Verified</option><option>Pending</option></select></div>
+    <button class="btn full">+ Add Supplier Stock</button>
+   </form>
+  </div>
+  <div class="card">
+   <h3>Registered Supplier Inventory</h3>
+   <div class="tablewrap"><table>
+    <thead><tr><th>Supplier</th><th>Location</th><th>Crop</th><th>Quantity</th><th>Price</th><th>Quality</th><th>Action</th></tr></thead>
+    <tbody id="supplierTable"></tbody>
+   </table></div>
+  </div>
+ </section>
+
+ <section class="page" id="orders">
+  <h2>International Buyer Orders</h2>
+  <div class="card">
+   <h3>Create Buyer Request</h3>
+   <form class="form" id="orderForm">
+    <div class="field"><label>Buyer Company</label><input id="buyerName" required maxlength="100"></div>
+    <div class="field"><label>Destination Country</label>
+     <select id="buyerCountry">
+      <option>Germany</option><option>France</option><option>United Kingdom</option>
+      <option>United States</option><option>Japan</option><option>India</option>
+      <option>Australia</option><option>Sri Lanka</option>
+     </select>
+    </div>
+    <div class="field"><label>Required Crop</label><select id="orderCrop"></select></div>
+    <div class="field"><label>Required Quantity</label><input id="orderQty" type="number" min="0.01" step="0.01" required></div>
+    <button class="btn full">+ Create Buyer Request</button>
+   </form>
+  </div>
+  <div class="card">
+   <h3>Buyer Requests</h3>
+   <div class="tablewrap"><table>
+    <thead><tr><th>Buyer</th><th>Country</th><th>Crop</th><th>Quantity</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody id="orderTable"></tbody>
+   </table></div>
+  </div>
+ </section>
+
+ <section class="page" id="matching">
+  <h2>🧠 Smart Supplier Aggregation</h2>
+  <div class="two">
+   <div class="card">
+    <h3>Order Fulfilment Simulator</h3>
+    <div class="field"><label>Select Buyer Order</label><select id="matchOrder"></select></div>
+    <br>
+    <div class="field"><label>Change Required Quantity (Optional)</label><input id="matchQty" type="number" step="0.01" min="0.01" placeholder="Leave empty for original quantity"></div>
+    <br>
+    <button class="btn" onclick="runMatching()">⚡ Generate Procurement Plan</button>
+   </div>
+   <div class="card">
+    <h3>Intelligent Features</h3>
+    <p>✅ Multiple supplier aggregation</p>
+    <p>✅ Minimum unit-price selection</p>
+    <p>✅ Quality verification filtering</p>
+    <p>✅ Shortage detection</p>
+    <p>✅ What-if quantity simulation</p>
+    <div class="note">This prototype uses a greedy allocation algorithm. It does not yet consider transport costs, delivery dates or different crop grades.</div>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Procurement Plan</h3>
+   <div id="matchResult" class="muted">Select an order and generate a procurement plan.</div>
+  </div>
+ </section>
+
+ <section class="page" id="register">
+  <h2>User Registration</h2>
+  <div class="two">
+   <div class="card">
+    <h3>Create Demo Account</h3>
+    <form class="form" id="registerForm">
+     <div class="field full"><label>User Role</label>
+      <select id="regRole">
+       <option value="Supplier">Supplier / Farmer</option>
+       <option value="Exporter">Exporter</option>
+       <option value="Buyer">International Buyer</option>
+      </select>
+     </div>
+     <div class="field"><label>Full Name</label><input id="regName" required maxlength="100"></div>
+     <div class="field"><label>Email</label><input id="regEmail" type="email" required></div>
+     <div class="field"><label>Business Name</label><input id="regBusiness" required maxlength="100"></div>
+     <div class="field"><label>Country</label>
+      <select id="regCountry">
+       <option>Sri Lanka</option><option>Germany</option><option>France</option>
+       <option>Japan</option><option>United States</option><option>India</option>
+      </select>
+     </div>
+     <button class="btn full">Submit Registration</button>
+    </form>
+   </div>
+   <div class="card">
+    <h3>Registration Workflow</h3>
+    <p>1. Select Supplier, Exporter or Buyer.</p>
+    <p>2. Enter personal and company information.</p>
+    <p>3. Verify email (future backend feature).</p>
+    <p>4. Administrator reviews business documents.</p>
+    <p>5. Approved users access their own dashboard.</p>
+    <div class="note">Demo only: registrations are saved in browser storage. There is no real authentication. Don't enter sensitive personal information.</div>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Registration Requests</h3>
+   <div class="tablewrap"><table>
+    <thead><tr><th>Name</th><th>Role</th><th>Business</th><th>Country</th><th>Status</th></tr></thead>
+    <tbody id="userTable"></tbody>
+   </table></div>
+  </div>
+ </section>
+
+ <p class="muted" style="text-align:center;margin-top:30px">© AgriExport Sync | University Capstone Prototype | Demo Data</p>
+</main>
+
+<script>
+"use strict";
+
+const STORAGE_KEY="agriexport_prototype_v1";
+const defaults={
+ crops:[
+  {id:"c1",name:"Coconut",category:"Plantation Crops",unit:"kg",icon:"🥥"},
+  {id:"c2",name:"Tea",category:"Plantation Crops",unit:"kg",icon:"🍃"},
+  {id:"c3",name:"Coffee",category:"Plantation Crops",unit:"kg",icon:"☕"},
+  {id:"c4",name:"Cinnamon",category:"Spices",unit:"kg",icon:"🌱"},
+  {id:"c5",name:"Rubber",category:"Plantation Crops",unit:"kg",icon:"🌳"}
+ ],
+ suppliers:[
+  {id:"s1",name:"Green Farms",location:"Kurunegala",cropId:"c1",qty:3000,price:480,quality:"Verified"},
+  {id:"s2",name:"Tropical Harvest",location:"Gampaha",cropId:"c1",qty:2500,price:510,quality:"Verified"},
+  {id:"s3",name:"Ceylon Agro",location:"Puttalam",cropId:"c1",qty:4000,price:490,quality:"Verified"},
+  {id:"s4",name:"Island Produce",location:"Colombo",cropId:"c1",qty:2000,price:470,quality:"Pending"},
+  {id:"s5",name:"Hill Country Tea",location:"Nuwara Eliya",cropId:"c2",qty:6000,price:1300,quality:"Verified"},
+  {id:"s6",name:"Southern Tea Co",location:"Galle",cropId:"c2",qty:2000,price:1250,quality:"Verified"},
+  {id:"s7",name:"Spice Valley",location:"Matale",cropId:"c4",qty:800,price:2800,quality:"Verified"}
+ ],
+ orders:[
+  {id:"o1",buyer:"Berlin Food Imports",country:"Germany",cropId:"c1",qty:10000,status:"Open"},
+  {id:"o2",buyer:"London Tea Traders",country:"United Kingdom",cropId:"c2",qty:7000,status:"Open"},
+  {id:"o3",buyer:"Paris Spice House",country:"France",cropId:"c4",qty:1200,status:"Open"}
+ ],
+ users:[]
+};
+
+function clone(x){return JSON.parse(JSON.stringify(x))}
+let db;
+try{
+ const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+ db=saved&&["crops","suppliers","orders","users"].every(k=>Array.isArray(saved[k]))?saved:clone(defaults);
+}catch(e){db=clone(defaults)}
+function save(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(db))}
+ catch(e){alert("Storage unavailable. Changes might not persist.")}
+}
+function id(){return "id"+Date.now()+Math.random().toString(36).slice(2,7)}
+function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function fmt(x){return Number(x).toLocaleString("en-US",{maximumFractionDigits:2})}
+function crop(id){return db.crops.find(c=>c.id===id)}
+function cropName(id){return crop(id)?.name||"Unknown"}
+function qtyText(n,id){return fmt(n)+" "+(crop(id)?.unit||"units")}
+
+const i18n={
+ en:{dashboard:"Dashboard",crops:"Crops",suppliers:"Suppliers",orders:"Orders",matching:"Smart Matching",register:"Registration",hero:"Connect. Optimize. Export.",desc:"Connecting agricultural suppliers, exporters and international buyers through intelligent supply coordination."},
+ si:{dashboard:"පාලක පුවරුව",crops:"බෝග",suppliers:"සැපයුම්කරුවන්",orders:"ඇණවුම්",matching:"බුද්ධිමත් ගැළපීම",register:"ලියාපදිංචිය",hero:"සම්බන්ධ කරන්න. සැලසුම් කරන්න. අපනයනය කරන්න.",desc:"කෘෂිකාර්මික සැපයුම්කරුවන්, අපනයනකරුවන් සහ විදේශීය ගැනුම්කරුවන් සම්බන්ධ කරන වේදිකාවකි."},
+ ta:{dashboard:"முகப்புப் பலகை",crops:"பயிர்கள்",suppliers:"வழங்குநர்கள்",orders:"ஆர்டர்கள்",matching:"புத்திசாலி பொருத்தம்",register:"பதிவு",hero:"இணைக்கவும். மேம்படுத்தவும். ஏற்றுமதி செய்யவும்.",desc:"விவசாய வழங்குநர்கள், ஏற்றுமதியாளர்கள் மற்றும் சர்வதேச வாங்குபவர்களை இணைக்கும் தளம்."},
+ de:{dashboard:"Übersicht",crops:"Produkte",suppliers:"Lieferanten",orders:"Bestellungen",matching:"Intelligente Zuordnung",register:"Registrierung",hero:"Verbinden. Optimieren. Exportieren.",desc:"Eine Plattform für Agrarlieferanten, Exporteure und internationale Käufer."},
+ fr:{dashboard:"Tableau de bord",crops:"Produits",suppliers:"Fournisseurs",orders:"Commandes",matching:"Correspondance intelligente",register:"Inscription",hero:"Connecter. Optimiser. Exporter.",desc:"Une plateforme reliant les fournisseurs agricoles, les exportateurs et les acheteurs internationaux."}
+};
+
+function translate(){
+ const t=i18n[document.getElementById("language").value]||i18n.en;
+ document.querySelectorAll("[data-key]").forEach(el=>{
+  const key=el.dataset.key;
+  el.textContent=t[key]||key;
+ });
+ document.getElementById("heroTitle").textContent=t.hero;
+ document.getElementById("heroDesc").textContent=t.desc;
+ const current=document.querySelector(".page.active").id;
+ document.getElementById("pageTitle").textContent=t[current];
+}
+
+function go(page){
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
+ document.querySelector('[data-page="'+page+'"]').classList.add("active");
+ translate();
+ window.scrollTo(0,0);
+}
+document.querySelectorAll(".nav").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+
+document.getElementById("language").addEventListener("change",translate);
+document.getElementById("country").addEventListener("change",e=>{
+ const langs={LK:"si",DE:"de",FR:"fr",US:"en",JP:"en"};
+ document.getElementById("language").value=langs[e.target.value]||"en";
+ translate();
+});
+
+function setOptions(el,items,label){
+ const previous=el.value;
+ el.replaceChildren();
+ items.forEach(item=>{
+  const opt=document.createElement("option");
+  opt.value=item.id;
+  opt.textContent=label(item);
+  el.appendChild(opt);
+ });
+ if(items.some(x=>x.id===previous))el.value=previous;
+}
+function renderOptions(){
+ setOptions(document.getElementById("supplierCrop"),db.crops,c=>c.icon+" "+c.name+" ("+c.unit+")");
+ setOptions(document.getElementById("orderCrop"),db.crops,c=>c.icon+" "+c.name+" ("+c.unit+")");
+ setOptions(document.getElementById("matchOrder"),db.orders,o=>o.buyer+" — "+cropName(o.cropId)+" ("+qtyText(o.qty,o.cropId)+")");
+}
+
+function renderDashboard(){
+ const total=db.suppliers.reduce((s,x)=>s+Number(x.qty),0);
+ const verified=db.suppliers.filter(s=>s.quality==="Verified").length;
+ document.getElementById("stats").innerHTML=[
+  ["🌾","Crop Types",db.crops.length],
+  ["👨‍🌾","Suppliers",db.suppliers.length],
+  ["📦","Buyer Orders",db.orders.length],
+  ["✅","Verified Stock Records",verified]
+ ].map(x=>`<div class="stat"><span class="muted">${x[0]} ${x[1]}</span><b>${fmt(x[2])}</b><span class="muted">Demo platform data</span></div>`).join("");
+
+ document.getElementById("cropSummary").innerHTML=
+ db.crops.map(c=>{
+  const amount=db.suppliers.filter(s=>s.cropId===c.id).reduce((a,s)=>a+Number(s.qty),0);
+  const pct=total>0?amount/total*100:0;
+  return `<p>${esc(c.icon)} ${esc(c.name)} <strong style="float:right">${qtyText(amount,c.id)}</strong></p><div class="bar"><div class="fill" style="width:${pct}%"></div></div>`;
+ }).join("")||"<p>No crops found.</p>";
+
+ document.getElementById("recentOrders").innerHTML=
+ db.orders.slice(-5).reverse().map(o=>
+ `<p><strong>${esc(o.buyer)}</strong><br><span class="muted">${esc(cropName(o.cropId))} · ${qtyText(o.qty,o.cropId)} · ${esc(o.country)}</span></p>`
+ ).join("")||"<p>No orders.</p>";
+}
+
+function renderCrops(){
+ document.getElementById("cropCards").innerHTML=db.crops.map(c=>
+ `<div class="crop"><div class="emoji">${esc(c.icon)}</div><h3>${esc(c.name)}</h3><p class="muted">${esc(c.category)}</p><span class="tag">Unit: ${esc(c.unit)}</span></div>`
+ ).join("");
+}
+
+function renderSuppliers(){
+ document.getElementById("supplierTable").innerHTML=db.suppliers.map(s=>
+ `<tr><td>${esc(s.name)}</td><td>${esc(s.location)}</td><td>${esc(cropName(s.cropId))}</td><td>${qtyText(s.qty,s.cropId)}</td><td>LKR ${fmt(s.price)}</td><td><span class="tag ${s.quality==="Pending"?"warn":""}">${esc(s.quality)}</span></td><td><button class="btn red small" data-delete-supplier="${esc(s.id)}">Delete</button></td></tr>`
+ ).join("")||'<tr><td colspan="7">No suppliers.</td></tr>';
+}
+
+function renderOrders(){
+ document.getElementById("orderTable").innerHTML=db.orders.map(o=>
+ `<tr><td>${esc(o.buyer)}</td><td>${esc(o.country)}</td><td>${esc(cropName(o.cropId))}</td><td>${qtyText(o.qty,o.cropId)}</td><td><span class="tag">${esc(o.status)}</span></td><td><button class="btn small" data-match="${esc(o.id)}">Match</button> <button class="btn red small" data-delete-order="${esc(o.id)}">Delete</button></td></tr>`
+ ).join("")||'<tr><td colspan="6">No orders.</td></tr>';
+}
+
+function renderUsers(){
+ document.getElementById("userTable").innerHTML=db.users.map(u=>
+ `<tr><td>${esc(u.name)}</td><td>${esc(u.role)}</td><td>${esc(u.business)}</td><td>${esc(u.country)}</td><td><span class="tag warn">Pending</span></td></tr>`
+ ).join("")||'<tr><td colspan="5">No registration requests.</td></tr>';
+}
+
+function render(){
+ renderOptions();renderDashboard();renderCrops();renderSuppliers();renderOrders();renderUsers();
+}
+
+document.getElementById("cropForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const name=document.getElementById("cropName").value.trim();
+ if(!name)return;
+ if(db.crops.some(c=>c.name.toLowerCase()===name.toLowerCase())){
+  alert("This crop already exists.");return;
+ }
+ db.crops.push({
+  id:id(),name,
+  category:document.getElementById("cropCategory").value,
+  unit:document.getElementById("cropUnit").value,
+  icon:document.getElementById("cropIcon").value
+ });
+ save();e.target.reset();render();alert("Crop added successfully!");
+});
+
+document.getElementById("supplierForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const quantity=Number(document.getElementById("supplierQty").value);
+ const price=Number(document.getElementById("supplierPrice").value);
+ if(!(quantity>0&&price>0))return alert("Enter valid quantity and price.");
+ db.suppliers.push({
+  id:id(),
+  name:document.getElementById("supplierName").value.trim(),
+  location:document.getElementById("supplierLocation").value.trim(),
+  cropId:document.getElementById("supplierCrop").value,
+  qty:quantity,price,
+  quality:document.getElementById("supplierQuality").value
+ });
+ save();e.target.reset();render();alert("Supplier stock added!");
+});
+
+document.getElementById("orderForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const q=Number(document.getElementById("orderQty").value);
+ if(!(q>0))return alert("Enter valid quantity.");
+ db.orders.push({
+  id:id(),buyer:document.getElementById("buyerName").value.trim(),
+  country:document.getElementById("buyerCountry").value,
+  cropId:document.getElementById("orderCrop").value,
+  qty:q,status:"Open"
+ });
+ save();e.target.reset();render();alert("Buyer request added!");
+});
+
+document.getElementById("registerForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const email=document.getElementById("regEmail").value.trim();
+ if(db.users.some(u=>u.email.toLowerCase()===email.toLowerCase())){
+  return alert("This email is already registered in the demo.");
+ }
+ db.users.push({
+  id:id(),role:document.getElementById("regRole").value,
+  name:document.getElementById("regName").value.trim(),
+  email,
+  business:document.getElementById("regBusiness").value.trim(),
+  country:document.getElementById("regCountry").value
+ });
+ save();e.target.reset();render();
+ alert("Demo registration submitted! Status: Pending.");
+});
+
+document.getElementById("supplierTable").addEventListener("click",e=>{
+ const b=e.target.closest("[data-delete-supplier]");
+ if(!b)return;
+ if(confirm("Delete this supplier inventory record?")){
+  db.suppliers=db.suppliers.filter(s=>s.id!==b.dataset.deleteSupplier);
+  save();render();
+ }
+});
+
+document.getElementById("orderTable").addEventListener("click",e=>{
+ const match=e.target.closest("[data-match]");
+ if(match){
+  go("matching");
+  document.getElementById("matchOrder").value=match.dataset.match;
+  document.getElementById("matchQty").value="";
+  runMatching();return;
+ }
+ const del=e.target.closest("[data-delete-order]");
+ if(del&&confirm("Delete this buyer order?")){
+  db.orders=db.orders.filter(o=>o.id!==del.dataset.deleteOrder);
+  save();render();
+ }
+});
+
+function runMatching(){
+ const oid=document.getElementById("matchOrder").value;
+ const order=db.orders.find(o=>o.id===oid);
+ const out=document.getElementById("matchResult");
+ if(!order){out.textContent="Please create a buyer order first.";return;}
+ const custom=document.getElementById("matchQty").value;
+ const required=custom.trim()===""?Number(order.qty):Number(custom);
+ if(!Number.isFinite(required)||required<=0){
+  out.textContent="Please enter a valid quantity.";return;
+ }
+ // Filter verified inventory and sort by ascending unit price.
+ const candidates=db.suppliers
+  .filter(s=>s.cropId===order.cropId&&s.quality==="Verified"&&Number(s.qty)>0)
+  .sort((a,b)=>Number(a.price)-Number(b.price));
+
+ let remaining=required;
+ let cost=0;
+ const allocations=[];
+ for(const s of candidates){
+  if(remaining<=0)break;
+  const take=Math.min(Number(s.qty),remaining);
+  if(take<=0)continue;
+  allocations.push({supplier:s,qty:take,cost:take*Number(s.price)});
+  remaining=Math.max(0,remaining-take);
+  cost+=take*Number(s.price);
+ }
+ const fulfilled=Math.max(0,required-remaining);
+ const percent=Math.min(100,fulfilled/required*100);
+ const rows=allocations.map(a=>
+ `<tr><td>${esc(a.supplier.name)}</td><td>${esc(a.supplier.location)}</td><td>${qtyText(a.qty,order.cropId)}</td><td>LKR ${fmt(a.supplier.price)}</td><td>LKR ${fmt(a.cost)}</td></tr>`
+ ).join("");
+
+ out.innerHTML=`
+  <div class="result">
+   <h3>${remaining<=0?"✅ Order Can Be Fulfilled":"⚠️ Supply Shortage Detected"}</h3>
+   <p><strong>Buyer:</strong> ${esc(order.buyer)} (${esc(order.country)})</p>
+   <p><strong>Product:</strong> ${esc(cropName(order.cropId))}</p>
+   <p><strong>Required:</strong> ${qtyText(required,order.cropId)}</p>
+   <p><strong>Allocated:</strong> ${qtyText(fulfilled,order.cropId)}</p>
+   <p><strong>Shortage:</strong> ${qtyText(remaining,order.cropId)}</p>
+   <p><strong>Estimated Procurement Cost:</strong> LKR ${fmt(cost)}</p>
+   <div class="bar"><div class="fill" style="width:${percent}%"></div></div>
+   <p class="muted">${percent.toFixed(1)}% fulfilled</p>
+  </div>
+  <h3>Suggested Supplier Allocation</h3>
+  <div class="tablewrap"><table>
+   <thead><tr><th>Supplier</th><th>Location</th><th>Allocated</th><th>Unit Price</th><th>Cost</th></tr></thead>
+   <tbody>${rows||'<tr><td colspan="5">No verified stock available.</td></tr>'}</tbody>
+  </table></div>
+  <p class="muted">Simulation only. No inventory is reserved, no payments are taken, and no orders are submitted.</p>
+ `;
+}
+
+document.getElementById("matchOrder").addEventListener("change",()=>{
+ document.getElementById("matchQty").value="";
+ document.getElementById("matchResult").textContent="Click Generate Procurement Plan.";
+});
+
+// Initialize all dashboard views.
+render();
+translate();
+</script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>StudyFlow Integrations</title>
+
+  <link
+    rel="stylesheet"
+    href="integrations.css"
+  >
+</head>
+
+<body>
+
+  <!-- MOBILE SIDEBAR OVERLAY -->
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+  ></div>
+
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="sidebar-top">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            S
+          </div>
+
+          <h2>
+            StudyFlow
+          </h2>
+
+        </div>
+
+
+        <button
+          id="closeSidebar"
+          class="close-sidebar-btn"
+          type="button"
+          aria-label="Close navigation"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <nav class="nav-menu">
+
+        <a
+          href="dashboard.html"
+          class="nav-item"
+        >
+          <span>🏠</span>
+          Dashboard
+        </a>
+
+
+        <a
+          href="tasks.html"
+          class="nav-item"
+        >
+          <span>📝</span>
+          Tasks
+        </a>
+
+
+        <a
+          href="assignments.html"
+          class="nav-item"
+        >
+          <span>📚</span>
+          Assignments
+        </a>
+
+
+        <a
+          href="exams.html"
+          class="nav-item"
+        >
+          <span>📅</span>
+          Exams
+        </a>
+
+
+        <a
+          href="calendar.html"
+          class="nav-item"
+        >
+          <span>📆</span>
+          Calendar
+        </a>
+
+
+        <a
+          href="integrations.html"
+          class="nav-item active"
+        >
+          <span>🔗</span>
+          Integrations
+        </a>
+
+
+        <a
+          href="profile.html"
+          class="nav-item"
+        >
+          <span>👤</span>
+          Profile
+        </a>
+
+      </nav>
+
+
+      <button
+        id="logoutButton"
+        class="logout-btn"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+      <!-- MOBILE HEADER -->
+
+      <div class="mobile-header">
+
+        <button
+          id="openSidebar"
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+
+
+        <div class="mobile-brand">
+
+          <div class="mobile-brand-icon">
+            S
+          </div>
+
+          <span>
+            StudyFlow
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- PAGE HEADER -->
+
+      <div class="topbar">
+
+        <div>
+
+          <p class="small-text">
+            External Services
+          </p>
+
+          <h1>
+            Integrations
+          </h1>
+
+          <p class="sub-text">
+            Connect StudyFlow with learning platforms and import academic work.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- INFO CARD -->
+
+      <section class="info-card">
+
+        <div class="info-icon">
+          💡
+        </div>
+
+
+        <div>
+
+          <h3>
+            LMS Integration Prototype
+          </h3>
+
+          <p>
+            This demonstration shows how StudyFlow can receive assignments from
+            an external university Learning Management System.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- PLATFORM CARD -->
+
+      <section class="platform-card">
+
+        <div class="platform-top">
+
+          <div class="platform-title">
+
+            <div class="platform-icon">
+              🎓
+            </div>
+
+
+            <div>
+
+              <p class="small-label">
+                Learning Management System
+              </p>
+
+              <h2 id="platformName">
+                Demo University LMS
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="connectionStatus"
+            class="status-badge connected"
+          >
+            ● Connected
+          </div>
+
+        </div>
+
+
+        <div class="platform-description">
+
+          <p>
+            Preview assignments available from the connected LMS and import
+            them directly into your StudyFlow Assignments page.
+          </p>
+
+        </div>
+
+
+        <div class="platform-features">
+
+          <div>
+            <span>✓</span>
+            Assignment title
+          </div>
+
+          <div>
+            <span>✓</span>
+            Subject
+          </div>
+
+          <div>
+            <span>✓</span>
+            Due date
+          </div>
+
+          <div>
+            <span>✓</span>
+            Priority
+          </div>
+
+          <div>
+            <span>✓</span>
+            Original source link
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- IMPORT SECTION -->
+
+      <section class="assignments-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <h2>
+              Available Assignments
+            </h2>
+
+            <p>
+              Choose an LMS assignment to import into StudyFlow.
+            </p>
+
+          </div>
+
+
+          <button
+            id="refreshButton"
+            class="refresh-btn"
+            type="button"
+          >
+            ↻ Refresh
+          </button>
+
+        </div>
+
+
+        <div
+          id="integrationMessage"
+          class="integration-message"
+        ></div>
+
+
+        <div
+          id="externalAssignmentList"
+          class="external-assignment-list"
+        >
+
+          <div class="loading-state">
+            Loading LMS assignments...
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script src="integrations.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>StudyFlow Tasks</title>
+
+  <link rel="stylesheet" href="tasks.css">
+</head>
+
+<body>
+
+  <!-- MOBILE OVERLAY -->
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+  ></div>
+
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="sidebar-top">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            S
+          </div>
+
+          <h2>
+            StudyFlow
+          </h2>
+
+        </div>
+
+
+        <button
+          id="closeSidebar"
+          class="close-sidebar-btn"
+          type="button"
+          aria-label="Close navigation"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <nav class="nav-menu">
+
+        <a href="dashboard.html" class="nav-item">
+          <span>🏠</span>
+          Dashboard
+        </a>
+
+        <a href="tasks.html" class="nav-item active">
+          <span>📝</span>
+          Tasks
+        </a>
+
+        <a href="assignments.html" class="nav-item">
+          <span>📚</span>
+          Assignments
+        </a>
+
+        <a href="exams.html" class="nav-item">
+          <span>📅</span>
+          Exams
+        </a>
+
+        <a href="calendar.html" class="nav-item">
+          <span>📆</span>
+          Calendar
+        </a>
+
+        <a href="integrations.html" class="nav-item">
+          <span>🔗</span>
+          Integrations
+        </a>
+
+        <a href="profile.html" class="nav-item">
+          <span>👤</span>
+          Profile
+        </a>
+
+      </nav>
+
+
+      <button
+        id="logoutButton"
+        class="logout-btn"
+      >
+        Logout
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+      <!-- MOBILE HEADER -->
+
+      <div class="mobile-header">
+
+        <button
+          id="openSidebar"
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+
+
+        <div class="mobile-brand">
+
+          <div class="mobile-brand-icon">
+            S
+          </div>
+
+          <span>
+            StudyFlow
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- TOPBAR -->
+
+      <div class="topbar">
+
+        <div>
+
+          <p class="small-text">
+            Study Management
+          </p>
+
+          <h1>
+            Tasks
+          </h1>
+
+        </div>
+
+
+        <button
+          class="add-task-btn"
+          id="openTaskModal"
+        >
+          + Add Task
+        </button>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            📋
+          </div>
+
+          <div>
+            <p>Total Tasks</p>
+            <h2 id="totalTasks">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⏳
+          </div>
+
+          <div>
+            <p>Pending</p>
+            <h2 id="pendingTasks">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ✅
+          </div>
+
+          <div>
+            <p>Completed</p>
+            <h2 id="completedTasks">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            🚨
+          </div>
+
+          <div>
+            <p>Overdue</p>
+            <h2 id="overdueTasks">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⚠️
+          </div>
+
+          <div>
+            <p>High Priority</p>
+            <h2 id="highPriorityTasks">0</h2>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TASK PANEL -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <h2>
+              My Tasks
+            </h2>
+
+            <p>
+              Search, filter and manage your study tasks.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- SEARCH + FILTERS -->
+
+        <div class="task-tools">
+
+          <div class="search-box">
+
+            <span>
+              🔍
+            </span>
+
+            <input
+              type="text"
+              id="taskSearch"
+              placeholder="Search tasks..."
+            >
+
+          </div>
+
+
+          <select id="taskFilter">
+
+            <option value="all">
+              All Status
+            </option>
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="overdue">
+              Overdue
+            </option>
+
+          </select>
+
+
+          <select id="priorityFilter">
+
+            <option value="all">
+              All Priorities
+            </option>
+
+            <option value="high">
+              High Priority
+            </option>
+
+            <option value="medium">
+              Medium Priority
+            </option>
+
+            <option value="low">
+              Low Priority
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div
+          class="result-summary"
+          id="resultSummary"
+        >
+          Showing 0 tasks
+        </div>
+
+
+        <div
+          id="taskList"
+          class="task-list"
+        >
+
+          <div class="empty-state">
+
+            <p>
+              No tasks found.
+            </p>
+
+            <span>
+              Add a task to get started.
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- TASK MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="taskModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="taskModalTitle">
+            Add New Task
+          </h2>
+
+          <p>
+            Add or update your study task.
+          </p>
+
+        </div>
+
+
+        <button
+          id="closeTaskModal"
+          class="close-btn"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="taskForm">
+
+        <input
+          type="hidden"
+          id="taskId"
+        >
+
+
+        <div class="form-group">
+
+          <label for="taskTitle">
+            Task Title
+          </label>
+
+          <input
+            type="text"
+            id="taskTitle"
+            placeholder="Example: Finish database assignment"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="taskDescription">
+            Description
+          </label>
+
+          <textarea
+            id="taskDescription"
+            placeholder="Add task details..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="taskDueDate">
+              Due Date
+            </label>
+
+            <input
+              type="date"
+              id="taskDueDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="taskPriority">
+              Priority
+            </label>
+
+            <select id="taskPriority">
+
+              <option value="low">
+                Low
+              </option>
+
+              <option
+                value="medium"
+                selected
+              >
+                Medium
+              </option>
+
+              <option value="high">
+                High
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="save-task-btn"
+          id="saveTaskButton"
+        >
+          Save Task
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="tasks.js"></script>
+
+</body>
+
+</html>

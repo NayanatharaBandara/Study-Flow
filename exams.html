@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>StudyFlow Exams</title>
+
+  <link rel="stylesheet" href="exams.css">
+</head>
+
+<body>
+
+  <!-- MOBILE SIDEBAR OVERLAY -->
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+  ></div>
+
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="sidebar-top">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            S
+          </div>
+
+          <h2>
+            StudyFlow
+          </h2>
+
+        </div>
+
+
+        <button
+          id="closeSidebar"
+          class="close-sidebar-btn"
+          type="button"
+          aria-label="Close navigation"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <nav class="nav-menu">
+
+        <a
+          href="dashboard.html"
+          class="nav-item"
+        >
+          <span>🏠</span>
+          Dashboard
+        </a>
+
+
+        <a
+          href="tasks.html"
+          class="nav-item"
+        >
+          <span>📝</span>
+          Tasks
+        </a>
+
+
+        <a
+          href="assignments.html"
+          class="nav-item"
+        >
+          <span>📚</span>
+          Assignments
+        </a>
+
+
+        <a
+          href="exams.html"
+          class="nav-item active"
+        >
+          <span>📅</span>
+          Exams
+        </a>
+
+
+        <a
+          href="calendar.html"
+          class="nav-item"
+        >
+          <span>📆</span>
+          Calendar
+        </a>
+
+
+        <a
+          href="integrations.html"
+          class="nav-item"
+        >
+          <span>🔗</span>
+          Integrations
+        </a>
+
+
+        <a
+          href="profile.html"
+          class="nav-item"
+        >
+          <span>👤</span>
+          Profile
+        </a>
+
+      </nav>
+
+
+      <button
+        id="logoutButton"
+        class="logout-btn"
+      >
+        Logout
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+      <!-- MOBILE HEADER -->
+
+      <div class="mobile-header">
+
+        <button
+          id="openSidebar"
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+
+
+        <div class="mobile-brand">
+
+          <div class="mobile-brand-icon">
+            S
+          </div>
+
+          <span>
+            StudyFlow
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- TOPBAR -->
+
+      <div class="topbar">
+
+        <div>
+
+          <p class="small-text">
+            Academic Schedule
+          </p>
+
+          <h1>
+            Exams
+          </h1>
+
+        </div>
+
+
+        <button
+          class="add-exam-btn"
+          id="openExamModal"
+        >
+          + Add Exam
+        </button>
+
+      </div>
+
+
+      <!-- STATISTICS -->
+
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            📅
+          </div>
+
+          <div>
+            <p>Total Exams</p>
+            <h2 id="totalExams">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⏳
+          </div>
+
+          <div>
+            <p>Upcoming</p>
+            <h2 id="upcomingExams">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ✅
+          </div>
+
+          <div>
+            <p>Completed</p>
+            <h2 id="completedExams">0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            🚨
+          </div>
+
+          <div>
+            <p>Today</p>
+            <h2 id="todayExams">0</h2>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- EXAM PANEL -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <h2>
+              My Exams
+            </h2>
+
+            <p>
+              Search, filter and manage your examination schedule.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- SEARCH & FILTER -->
+
+        <div class="exam-tools">
+
+          <div class="search-box">
+
+            <span>
+              🔍
+            </span>
+
+            <input
+              type="text"
+              id="examSearch"
+              placeholder="Search exams..."
+            >
+
+          </div>
+
+
+          <select id="examFilter">
+
+            <option value="all">
+              All Exams
+            </option>
+
+            <option value="upcoming">
+              Upcoming
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="today">
+              Today
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- RESULT SUMMARY -->
+
+        <div
+          id="resultSummary"
+          class="result-summary"
+        >
+          Showing 0 exams
+        </div>
+
+
+        <!-- EXAM LIST -->
+
+        <div
+          id="examList"
+          class="exam-list"
+        >
+
+          <div class="empty-state">
+
+            <p>
+              No exams found.
+            </p>
+
+            <span>
+              Add an exam to get started.
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ADD / EDIT EXAM MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="examModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="examModalTitle">
+            Add New Exam
+          </h2>
+
+          <p>
+            Add or update your exam information.
+          </p>
+
+        </div>
+
+
+        <button
+          id="closeExamModal"
+          class="close-btn"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="examForm">
+
+        <input
+          type="hidden"
+          id="examId"
+        >
+
+
+        <!-- SUBJECT -->
+
+        <div class="form-group">
+
+          <label for="examSubject">
+            Subject / Module
+          </label>
+
+          <input
+            type="text"
+            id="examSubject"
+            placeholder="Example: Database Systems"
+            required
+          >
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="form-group">
+
+          <label for="examTitle">
+            Exam Title
+          </label>
+
+          <input
+            type="text"
+            id="examTitle"
+            placeholder="Example: Final Examination"
+            required
+          >
+
+        </div>
+
+
+        <!-- DATE + TIME -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="examDate">
+              Exam Date
+            </label>
+
+            <input
+              type="date"
+              id="examDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="examTime">
+              Exam Time
+            </label>
+
+            <input
+              type="time"
+              id="examTime"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- LOCATION -->
+
+        <div class="form-group">
+
+          <label for="examLocation">
+            Location
+          </label>
+
+          <input
+            type="text"
+            id="examLocation"
+            placeholder="Example: Main Hall"
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="save-exam-btn"
+          id="saveExamButton"
+        >
+          Save Exam
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="exams.js"></script>
+
+</body>
+
+</html>
